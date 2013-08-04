@@ -1,11 +1,14 @@
 #lang racket
 
-(define (sum . z)
-    (define (iter ans L)
-        (if (null? L)
-            ans
-            (iter (+ ans (car L)) (cdr L))))
-    (iter 0 z))
+(require "felix.scm")
+(require "primes.scm")
 
-(sum 1 2 3)
-
+(filter (lambda (x) (is-prime? (+ (car x) (cadr x))))
+    (accumulate 
+        append
+        '()
+        (map
+            (lambda (i)
+                (map (lambda (j) (list i j))
+                     (range 1 (- i 1) 1)))
+            (range 1 6 1))))

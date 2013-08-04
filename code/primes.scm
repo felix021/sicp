@@ -2,9 +2,9 @@
 
 ;(load "prime-test.scm")
 (define (is-prime? x)
-    (define m (floor (sqrt x)))
+    (define m (ceiling (sqrt x)))
     (define (iter t)
-        (cond ((= t m) #t)
+        (cond ((> t m) #t)
               ((= (remainder x t) 0) #f)
               (else (iter (+ t 1) ))))
     (iter 2))
@@ -18,10 +18,10 @@
             (cond ((is-prime? x) (display x) (newline) (- n 1))
                   (else n)))))
 
-(define (search-primes n)
-    (let ((start-time (runtime)))
-         (find-n-primes n 3)
-         (- (runtime) start-time)))
+;(define (search-primes n)
+;    (let ((start-time (runtime)))
+;         (find-n-primes n 3)
+;         (- (runtime) start-time)))
 
 
 ;(find-n-primes 1001 10)
