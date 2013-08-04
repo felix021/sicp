@@ -59,6 +59,22 @@
         '()
         (cons start (range (+ start step) stop step))))
 
+(define (flatmap p s)
+    (accumulate append '() (map p s)))
+
+(define (fold-right op init seq)
+    (if (null? seq)
+        init
+        (op (car seq)
+            (fold-right op init (cdr seq)))))
+
+(define (fold-left op init seq)
+    (define (iter ans remain)
+        (if (null? remain)
+            ans
+            (iter (op ans (car remain)) (cdr remain))))
+    (iter init seq))
+        
 (provide
     reduce
     square
@@ -75,4 +91,7 @@
     zip
     append-one
     range
+    flatmap
+    fold-right
+    fold-left
     )
