@@ -26,7 +26,11 @@
 
 ;(find-n-primes 1001 10)
 
-(search-primes 1000)
-(search-primes 10000)
-(search-primes 100000)
+;(search-primes 1000)
+;(search-primes 10000)
+;(search-primes 100000)
+
+(provide 
+    is-prime?
+    find-n-primes)
 

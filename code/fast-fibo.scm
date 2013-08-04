@@ -18,5 +18,5 @@
                     (- cnt 1)))))
     (iter 1 0 0 1 n))
 
-(fast-fibo 300000)
-            
+;(fast-fibo 300000)
+(provide fast-fibo)
