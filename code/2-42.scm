@@ -2,36 +2,28 @@
 
 (require "felix.scm")
 
-;not ok....
-
-(define (queen row col) (cons row col))
-(define (row queen) (car queen))
-(define (col queen) (cdr queen))
-
-(define (safe? k positions)
-    (display k) (display ": ") (display positions) (newline)
-    (if (= k 1)
-        #t
-        (letrec
-            ((q (car positions))
-             (qsum (+ (row q) (col q)))
-             (qdiff (- (row q) (col q)))
-             (judge (lambda (lst)
-                (cond 
-                    ((null? lst) #t)
-                    ((or (let ((x (car lst)))
-                        (= (row q) (row x))
-                        (= (col q) (col x))
-                        (= qsum  (+ (row x) (col x)))
-                        (= qdiff (- (row x) (col x)))))
-                     #f)
-                    (else (judge (cdr lst)))))))
-            (judge (cdr positions)))))
-
 (define empty-board '())
 
-(define (adjoin-position col row rest-of-queens) 
-    (cons (queen row col) rest-of-queens))
+(define (safe? k positions)
+    ;(display k) (display ": ") (display positions) (newline)
+    (define p (car positions))
+
+    (define (conflict-with? q i)
+        (or 
+            (= p q)
+            (= p (+ q i))
+            (= p (- q i))))
+
+    (define (is-safe? others i) 
+        (cond 
+            ((null? others) #t)
+            ((conflict-with? (car others) i) #f)
+            (else (is-safe?  (cdr others) (inc i)))))
+
+    (is-safe? (cdr positions) 1))
+
+(define (adjoin-position new-row k rest-of-queens)
+    (cons new-row rest-of-queens))
 
 (define (queens board-size)
     (define (queen-cols k)
@@ -48,5 +40,8 @@
                     (queen-cols (dec k))))))
     (queen-cols board-size))
 
-(queens 4)
-;(length (queens 4))
+(let ((ans (queens 11)))
+    (display (length ans))
+    (newline)
+    ;(for-each (lambda (x) (begin (display x) (newline) #t)) ans)
+)
