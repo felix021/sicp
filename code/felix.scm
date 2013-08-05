@@ -75,6 +75,15 @@
             (iter (op ans (car remain)) (cdr remain))))
     (iter init seq))
         
+(define (enumerate-tree tree)
+    (cond
+        ((null? tree) '())
+        ((not (pair? tree)) (list tree))
+        (else (append (enumerate-tree (car tree)) (enumerate-tree (cdr tree))))))
+
+(define (list-range lst start end)
+    (drop (take lst end) start))
+
 (provide
     reduce
     square
@@ -94,4 +103,6 @@
     flatmap
     fold-right
     fold-left
+    enumerate-tree
+    list-range
     )
