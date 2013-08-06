@@ -18,18 +18,20 @@
         (check (cdr solution) 1)))
 
 (define (n-queen n)
-    (define (queen-cols k)
-        (if (= k 0)
-            (list '())
-            (filter
-                (lambda (solution) (safe? solution))
-                (flatmap
-                    (lambda (solution)
-                        (map 
+    (let ((n-cols (range 1 n 1)))
+        (define (queen-cols k)
+            (if (= k 0)
+                (list '())
+                (filter
+                    (lambda (solution) (safe? solution))
+                    (let ((sub-solutions (queen-cols (dec k))))
+                        (flatmap
                             (lambda (new-queen)
-                                (cons new-queen solution))
-                            (range 1 n 1)))
-                    (queen-cols (dec k))))))
-    (queen-cols n))
+                                (map 
+                                    (lambda (solution)
+                                        (cons new-queen solution))
+                                    sub-solutions))
+                            n-cols)))))
+        (queen-cols n)))
 
 (length (n-queen 11))
