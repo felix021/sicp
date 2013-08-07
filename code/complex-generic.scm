@@ -10,26 +10,15 @@
     square
 )
 
-(define (square x) (* x x))
-
-(define (attach-tag type-tag contents)
-    (cons type-tag contents))
-
-(define (type-tag datum)
-    (if (pair? datum)
-        (car datum)
-        (error "bad tagged datum -- TYPE-TAG: " datum)))
-
-(define (contents datum)
-    (if (pair? datum)
-        (cdr datum)
-        (error "bad tagged datum -- CONTENTS: " datum)))
+(require "apply-generic.scm")
 
 ;TODO @3.3?
 ;(define put (lambda (x y z) '()))
 ;(define get (lambda (x y z) '()))
 
 (require "getput.scm")
+
+(define (square x) (* x x))
 
 (define (install-rectangular-package)
     (define (real-part z) (car z))
@@ -55,7 +44,7 @@
         (lambda (x y) (tag (make-from-real-imag x y))))
     (put 'make-from-mag-ang   'rectangular
         (lambda (r a) (tag (make-from-mag-ang r a))))
-    'done)
+    'complex-rectangular-package-installed)
 
 (define (install-polar-package)
     (define (magnitude z) (car z))
@@ -83,20 +72,10 @@
         (lambda (x y) (tag (make-from-real-imag x y))))
     (put 'make-from-mag-ang   'polar
         (lambda (r a) (tag (make-from-mag-ang r a))))
-    'done)
+    'complex-polar-package-installed)
 
 (install-rectangular-package)
 (install-polar-package)
-
-(define (apply-generic op . args)
-    (let*
-          ((type-tags (map type-tag args))
-           (proc (get op type-tags)))
-        (if proc
-            (apply proc (map contents args))
-            (error 
-                "no methdo available for types -- APPLY-GENERIC: "
-                (list op type-tags)))))
 
 (define (real-part z) (apply-generic 'real-part z))
 (define (imag-part z) (apply-generic 'imag-part z))

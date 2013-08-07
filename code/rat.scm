@@ -41,6 +41,7 @@
 
 (define (print-rat x) (display (numer x)) (display "/") (display (denom x)) (newline))
 
+#|
 (print-rat (make-rat 3 4))
 (print-rat (make-rat -3 4))
 (print-rat (make-rat 3 -4))
@@ -49,3 +50,4 @@
 (print-rat 
     (mul-rat (make-rat 3 4)
              (make-rat 4 5)))
+|#

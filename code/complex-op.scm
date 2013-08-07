@@ -6,6 +6,12 @@
 ;(require "complex-tag.scm")
 (require "complex-generic.scm")
 
+(provide
+    add-complex
+    sub-complex
+    mul-complex
+    div-complex)
+
 (define (add-complex z1 z2)
     (make-from-real-imag
         (+ (real-part z1) (real-part z2))
@@ -26,7 +32,7 @@
         (/ (magnitude z1) (magnitude z2))
         (- (angle z1) (angle z2))))
 
-;#|
+#|
 (define z (make-from-real-imag 2 3))
 z
 (real-part z)
