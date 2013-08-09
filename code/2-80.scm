@@ -6,6 +6,10 @@
 (require "complex-op.scm")
 (require "2-77.scm")
 
+(provide
+    =zero?
+    )
+
 (define (install-=zero?)
     (define tolerance 0.0001)
     (define (eq-float x y) (< (abs (- x y)) tolerance))
@@ -26,6 +30,7 @@
     (apply-generic '=zero? x))
 
 ;; tests
+#|
 (=zero? 0) ;#t
 (=zero? 1) ;#f
 
@@ -35,3 +40,4 @@
 (=zero? (make-complex-polar 0 1)) ;#t
 (=zero? (make-complex-polar 1 0)) ;#f
 (=zero? (make-complex-rect 0.000001 0)) ;#t
+;|#
