@@ -5,6 +5,7 @@
 (require "complex-generic.scm")
 (require "complex-op.scm")
 (require "2.5.1-generic-op.scm")
+(require "generic-op.scm")
 
 (provide
     make-complex-rect
@@ -51,7 +52,7 @@
 (define z (make-complex-rect 3 4))
 z
 (magnitude z)
-|#
+;|#
 
 ;;
 ;;  (magnitude z)

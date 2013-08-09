@@ -3,11 +3,7 @@
 (require "getput.scm")
 (require "apply-generic.scm")
 
-(provide 
-    add
-    sub
-    mul
-    div)
+(require "generic-op.scm")
 
 (define (install-scheme-number-package)
 
@@ -78,11 +74,6 @@
 
 (define (make-rational x y)
     ((get 'make 'rational) x y))
-
-(define (add x y) (apply-generic 'add x y))
-(define (sub x y) (apply-generic 'sub x y))
-(define (mul x y) (apply-generic 'mul x y))
-(define (div x y) (apply-generic 'div x y))
 
 ;; tests
 #|

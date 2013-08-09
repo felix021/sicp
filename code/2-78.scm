@@ -2,6 +2,7 @@
 
 (require "apply-generic.scm")
 (require "2.5.1-generic-op.scm")
+(require "generic-op.scm")
 (require "getput.scm")
 
 ;; apply-generic modified in "apply-generic.scm"
