@@ -1,5 +1,6 @@
 #lang racket
 
+;; 1-37
 (define (cont-frac-sign N D k sign)
     (define (iter ans i)
         (if (= i 0)
@@ -16,6 +17,7 @@
 (golden-ratio 10)
 (golden-ratio 11)
 
+;; 1-38
 (define (e k)
     (+ 2 (cont-frac 
           (lambda (i) 1.0) 
@@ -27,6 +29,7 @@
 (e 10)
 (e 25)
 
+;; 1-39
 (define (cont-frac-sub N D k) (cont-frac-sign N D k -))
 
 (define (tan-cf x k)

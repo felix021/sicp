@@ -1,5 +1,8 @@
 #lang racket
 
+(provide
+    fixed-point)
+
 (define (fixed-point f x)
     ;(define (next t v) v)
     (define (next t v) (/ (+ t v) 2.0))
