@@ -17,3 +17,5 @@
 [SICP 公开课 中文字幕](http://www.douban.com/group/topic/36584558/)
 
 [racket非REPL环境如何正确load一个现有脚本](http://www.douban.com/group/topic/42119635/)
+
+[The SICP 2.2.4 Picture Language](http://planet.racket-lang.org/display.ss?package=sicp.plt&owner=soegaard): 在DrRacket里可以运行。
