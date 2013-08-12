@@ -34,4 +34,26 @@
                             n-cols)))))
         (queen-cols n)))
 
-(length (n-queen 11))
+(time (length (n-queen 10)))
+(time (length (n-queen 11)))
+
+
+;; update @ 2013-08-12
+
+(define (n-queen-faster n)
+    (define ans '())
+    (define (fill-col sol i)
+        (if (= i 0)
+            (set! ans (cons sol ans))
+            (for-each
+                (lambda (col)
+                    (if (safe? (cons col sol))
+                        (fill-col (cons col sol) (- i 1))
+                        #t))
+                (range 1 n 1))))
+    (fill-col '() n)
+    ans)
+
+(time (length (n-queen-faster 10)))
+(time (length (n-queen-faster 11)))
+(time (length (n-queen-faster 12)))
