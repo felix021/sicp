@@ -18,6 +18,9 @@
             (else (error "unknown request -- MAKE-ACCOUNT: " m))))
     dispatch)
 
-(define acc (make-account 100 'ooxx))
-((acc 'ooxx 'withdraw) 50) ;50
-((acc 'xxoo 'withdraw) 50) ;Insufficient funds
+;(define acc (make-account 100 'ooxx))
+;((acc 'ooxx 'withdraw) 50) ;50
+;((acc 'xxoo 'withdraw) 50) ;Insufficient funds
+
+(provide
+    make-account)
