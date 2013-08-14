@@ -15,6 +15,13 @@
 (display (count-pairs z4)) (newline)
 (display (count-pairs z7 )) (newline)
 
+
+(define c (list 'c))
+(define b (cons 'b c))
+(define a (cons 'a b))
+(set-cdr! c a)
+(display (count-pairs a)) (newline) ;loop forever or stack overflow
+
 ; 3: 
 ;   [a][+] (0+2+1)
 ;       |

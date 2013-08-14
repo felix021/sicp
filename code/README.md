@@ -3,7 +3,9 @@
 
 这是我自己的SICP学习记录，各种杂碎，仅供参考。
 
-这些代码都是基于 [Racket](http://racket-lang.org/) 实现的。
+截止到 3-10.scm(含) 的代码都是基于 [Racket](http://racket-lang.org/) 实现的；之后的代码切换到 [Guile](http://www.gnu.org/software/guile/) 。其实很好区别，如果第一行是 `#lang racket` 这样的都是Racket的代码。
+
+之所以要切换到Guile，是因为Racket并不直接支持 `set-cdr!` 等修改操作，需要改用scheme/mpair包里的 `set-mcdr!` ，并且连带的也得用 `mcons`, `mcar`, `mlist` ... 太麻烦了，所以就换过来了。而且Guile的错误提示什么的比Racket要丰富很多，便于查错。
 
 参考文档
 ========
