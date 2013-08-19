@@ -7,7 +7,7 @@
             (let ((new-pair (cons item '())))
                 (if (null? front-ptr)
                     (set! front-ptr new-pair)
-                    (set! rear-ptr new-pair))
+                    (set-cdr! rear-ptr new-pair))
                 (set! rear-ptr new-pair)))
 
         (define (delete!)
@@ -43,7 +43,6 @@
 ((q 'insert!) 2)
 ((q 'insert!) 3)
 (q 'print)
-#|
 (q 'delete!)
 ((q 'insert!) 4)
 (q 'delete!)
@@ -57,4 +56,6 @@
 (q 'delete!)
 (display (q 'empty?)) (newline)
 (q 'print)
+(q 'delete!)
+;#|
 ;|#
