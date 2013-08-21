@@ -38,5 +38,4 @@
 (set-signal! b0 1)
 (set-signal! b1 1)
 
-
-(D (list s0 s1 (get-signal C)))
+(display (list (get-signal s0) (get-signal s1) (get-signal C)))

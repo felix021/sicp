@@ -1,5 +1,3 @@
-(define (D x) (display x) (newline))
-
 (define (after-delay delay proc)
     (usleep (* delay 1000)) ; milli-seconds
     (proc))
@@ -8,6 +6,42 @@
 (define or-gate-delay 1)
 (define and-gate-delay 1)
 
+(define (call-each procs)
+    (if (null? procs)
+        'done
+        (begin
+            ((car procs))
+            (call-each (cdr procs)))))
+
+(define (make-wire)
+    (let ((signal-value 0)
+          (action-procedures '()))
+        (define (set-my-signal! new-value)
+            (if (not (= signal-value new-value))
+                (begin
+                    (set! signal-value new-value)
+                    (call-each action-procedures))
+                'done))
+        (define (accept-action-procedure! proc)
+            (set! action-procedures (cons proc action-procedures))
+            (proc))
+        (define (dispatch m)
+            (cond
+                ((eq? m 'get-signal) signal-value)
+                ((eq? m 'set-signal!) set-my-signal!)
+                ((eq? m 'add-action!) accept-action-procedure!)
+                (else (error "unknown operation -- WIRE" m))))
+        dispatch))
+
+(define (add-action! wire proc)
+    ((wire 'add-action!) proc))
+
+(define (get-signal wire) (wire 'get-signal))
+(define (set-signal! wire value) ((wire 'set-signal!) value))
+    
+
+#|
+;; my implementation of make-wire
 (define (make-wire) (list 0)) ; value, actions
 
 (define (add-action! wire proc) (set-cdr! wire (cons proc (cdr wire))))
@@ -15,7 +49,6 @@
 
 (define (get-signal wire) (car wire))
 (define (set-signal! wire value)
-    ;(D "set-signal!") (D wire) (D value)
     (set-car! wire value)
     (letrec
         ((actions (get-action wire))
@@ -26,6 +59,9 @@
                         ((car remain))
                         (execute (cdr remain)))))))
         (execute actions)))
+|#
+
+(define (D x) (display (get-signal x)) (newline))
             
 
 (define (logical-not s)
@@ -75,7 +111,7 @@
     'ok)
 
 ;; tests
-#|
+;#|
 (define a (make-wire))
 (define b (make-wire))
 (define c (make-wire))
@@ -83,6 +119,7 @@
 (define e (make-wire))
 (define s (make-wire))
 
+#|
 (or-gate a b d)
 (and-gate a b c)
 (inverter c e)
@@ -130,7 +167,7 @@
 (D c) (D s)
 (set-signal! a 1)
 (D c) (D s)
-|#
+;|#
 
 
 ;; Full-Adder:
