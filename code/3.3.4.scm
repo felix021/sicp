@@ -1,7 +1,7 @@
 (define (D x) (display x) (newline))
 
 (define (after-delay delay proc)
-    (usleep (* delay 1000))
+    (usleep (* delay 1000)) ; milli-seconds
     (proc))
 
 (define inverter-delay 1)
@@ -75,7 +75,7 @@
     'ok)
 
 ;; tests
-;#|
+#|
 (define a (make-wire))
 (define b (make-wire))
 (define c (make-wire))
@@ -83,7 +83,6 @@
 (define e (make-wire))
 (define s (make-wire))
 
-#|
 (or-gate a b d)
 (and-gate a b c)
 (inverter c e)
@@ -96,6 +95,22 @@
 (set-signal! a 1)
 (D c) (D s)
 ;|#
+
+;; Half-Adder
+;;
+;; --a--\
+;;       > OR --d------------------\
+;; --b--/                           \
+;;                                   > AND --s--
+;;                                  /
+;; --a--\            /-- NOT --e---/
+;;       > AND --c--<
+;; --b--/            \-----------------------c--
+;;
+;;
+;; ;; in real world, OR/AND will start simultaneosly.
+;;
+;; ha-delay => (+ (max or-delay (+ and-delay not-delay)) and-delay)
 
 (define (half-adder a b s c)
     (let ((d (make-wire))
@@ -118,6 +133,16 @@
 |#
 
 
+;; Full-Adder:
+;;
+;; -- a ------------------\      /---sum----------------
+;;                         > HA <
+;; -- b ---\      /--s----/      \---c2---\
+;;          > HA <                         > OR --c_out--
+;; --c_in--/      \--c1-------------------/
+;;
+;; fa-delay => (+ ha-delay ha-delay or-delay)
+
 (define (full-adder a b c-in sum c-out)
     (let ((s (make-wire))
           (c1 (make-wire))
@@ -130,11 +155,11 @@
 #|
 (full-adder a b c s d)
 (set-signal! a 0)
-(D d) (D s)
+(D d) (D s) (newline)
 (set-signal! b 1)
-(D d) (D s)
+(D d) (D s) (newline)
 (set-signal! a 1)
-(D d) (D s)
+(D d) (D s) (newline)
 (set-signal! c 1)
-(D d) (D s)
-|#
+(D d) (D s) (newline)
+;|#
