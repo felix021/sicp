@@ -19,7 +19,7 @@
                     ret)))))
 
 (define (parallel-execute . procs)
-    (let ((threads (map (lambda (p) (call-with-new-thread p)) procs)))
+    (let ((threads (map call-with-new-thread procs)))
         (for-each join-thread threads)))
 
 (define (make-serializer-slow)
