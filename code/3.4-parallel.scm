@@ -12,9 +12,9 @@
 (define (make-serializer)
     (let ((m (mutex)))
         (lambda (f)
-            (lambda ()
+            (lambda (. args)
                 (let ((x (m 'acquire))
-                      (ret (f))
+                      (ret (apply f args))
                       (y (m 'release)))
                     ret)))))
 
