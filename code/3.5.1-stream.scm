@@ -67,6 +67,15 @@
             low
             (stream-enumerate-interval (+ low 1) high))))
 
+(define (stream-head stream n)
+    (cond
+        ((stream-null? stream) '())
+        ((= n 0) '())
+        (else
+            (cons
+                (stream-car stream)
+                (stream-head (stream-cdr stream) (- n 1))))))
+
 #|
 
 (display-stream (stream-enumerate-interval 1 10))

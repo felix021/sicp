@@ -12,7 +12,11 @@
 
 以下是学习过程中用到的资源
 
-[huangz 的 SICP 解题集](http://sicp.readthedocs.org/en/latest/)
+[SICP-Solutions](http://community.schemewiki.org/?SICP-Solutions): 大部分都有，但部分习题未完成。
+
+[huangz 的 SICP 解题集](http://sicp.readthedocs.org/en/latest/): 目前更新到4.14，其中有部分习题未完成
+
+[zzljlu的专栏.SICP](http://blog.csdn.net/zzljlu/article/category/789761): 目前更新到4.16, 2012.06
 
 [ini.kelvin 的 SICP学习笔记和习题解答](http://kelvinh.github.io/wiki/sicp/)
 
