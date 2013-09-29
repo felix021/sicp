@@ -66,4 +66,8 @@
             (else (iter (stream-cdr ps)))))
     (iter primes))
 
+; copied from 3-54
+(define (mul-streams s1 s2)
+    (stream-map * s1 s2))
+
 ;(display-line (stream-ref primes 25))
