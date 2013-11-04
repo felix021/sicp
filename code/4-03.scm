@@ -16,7 +16,8 @@
         ((self-evaluating? expr) expr)
         ((variable? expr) (lookup-variable-value expr env))
         ((get 'op (car expr))
-            (applyn (get 'op (car expr) expr env)))
-        ((application? expr) (applyn (evaln (operator expr) env) (list-of-values (operands expr) env)))
+            (applyn (get 'op (car expr)) (list expr env)))
+        ((application? expr)
+            (applyn (evaln (operator expr) env) (list-of-values (operands expr) env)))
         (else
             (error "unknown expression type -- EVAL" expr))))
