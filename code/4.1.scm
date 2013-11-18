@@ -83,7 +83,7 @@
 
 (define (if-alternative exp)
     (if (not (null? (cdddr exp)))
-        (cdddr exp)
+        (cadddr exp)
         'false))
 
 (define (make-if predicate consequent alternative)
