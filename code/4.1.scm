@@ -124,6 +124,22 @@
 (define (cond->if exp)
     (expand-clauses (cond-clauses exp)))
 
+;; ==== let ====
+
+(define (let? exp) (tagged-list? exp 'let))
+
+(define (let-parameters-list exp) (cadr exp))
+
+(define (let-body exp) (cddr exp))
+
+(define (let->combination exp)
+    (let ((parameters  (let-parameters-list exp)))
+        (cons
+            (make-lambda
+                (map car parameters)
+                (let-body exp))
+            (map cadr parameters))))
+
 ;; ==== lambda ====
 
 (define (lambda? exp) (tagged-list? exp 'lambda))
@@ -318,6 +334,7 @@
         ((begin? exp)
             (eval-sequence (begin-actions exp) env))
         ((cond? exp) (eval (cond->if exp) env))
+        ((let? exp) (eval (let->combination exp) env))
         ((application? exp)
             (apply
                 (eval (operator exp) env)
@@ -385,3 +402,35 @@
 
 (driver-loop)
 
+#|
+
+;; test cases:
+
+(if (if (> 3 2) true false) 1 0)
+(if (if (< 3 2) true false) 1 0)
+
+(begin (display 1) (+ 1 2))
+
+(cond ((> 3 2) 1) (else 0))
+
+(cond ((< 3 2) 1) ((> 4 3) 2) (else 0))
+
+(cond ((< 3 2) 1) ((< 4 3) 2) (else 0))
+
+(define x (lambda () (display 1)))
+(x)
+
+(define y (lambda (t) (display t)))
+(y 1)
+
+(define (z a b) (+ a b))
+(z 1 2)
+
+(define a 1)
+(set! a 2)
+
+(set! b 1) ;should cause an error
+
+(let ((a 1) (b 2)) (+ a b))
+
+|#
