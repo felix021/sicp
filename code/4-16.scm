@@ -1,4 +1,6 @@
-(include "4.1.scm") ;comment out the "(driver-loop)" line first.
+(define dont-run 1)
+
+(include "4.1.scm")
 
 ; a)
 
