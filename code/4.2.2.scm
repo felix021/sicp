@@ -100,6 +100,17 @@
         (else obj)))
 ;|#
 
+#|
+(display "[actual-value used in eval-sequence]") (newline)
+;; introduced by 4-30, replace second eval with actual-value
+(define (eval-sequence exps env)
+    (cond
+        ((last-exp? exps) (eval (first-exp exps) env))
+        (else
+            (actual-value (first-exp exps) env)
+            (eval-sequence (rest-exps exps) env))))
+;|#
+
 ; new driver-loop
 (define (driver-loop)
     (prompt-for-input input-prompt)
@@ -110,4 +121,6 @@
     (if (= exit-flag 0)
         (driver-loop)))
 
-(driver-loop)
+(if (not (defined? 'dont-run-all))
+    (driver-loop)
+)
